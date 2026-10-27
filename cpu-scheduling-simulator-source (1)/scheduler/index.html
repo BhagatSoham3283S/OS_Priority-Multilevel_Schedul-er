@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CPU Scheduling Simulator – Multilevel Queue and Priority</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <h1>CPU Scheduling Simulator</h1>
+    <p>Run Multilevel Queue and Priority scheduling on the same processes, watch the CPU timeline build one time unit at a time, and compare the results.</p>
+  </header>
+
+  <main>
+    <!-- STEP 1: INPUT -->
+    <section class="step" aria-labelledby="h-input">
+      <h2 id="h-input"><span class="num">1</span>Enter processes</h2>
+      <p class="hint">Times are in whole time units. A smaller priority number means higher priority. Queue is used by Multilevel Queue only.</p>
+      <div class="table-wrap" id="input-wrap">
+        <table class="proc-input">
+          <thead>
+            <tr><th scope="col">Process</th><th scope="col">Arrival</th><th scope="col">Burst</th><th scope="col">Priority</th><th scope="col">Queue</th><th scope="col"><span class="sr">Remove</span></th></tr>
+          </thead>
+          <tbody id="proc-body"></tbody>
+        </table>
+      </div>
+      <div class="toolbar">
+        <button type="button" class="btn" id="btn-add">Add process</button>
+        <button type="button" class="btn ghost" id="btn-sample">Load sample set</button>
+        <button type="button" class="btn ghost" id="btn-clear">Clear all</button>
+      </div>
+      <div id="error-box" class="error-box" role="alert" hidden></div>
+    </section>
+
+    <!-- STEP 2: ALGORITHM -->
+    <section class="step" aria-labelledby="h-algo">
+      <h2 id="h-algo"><span class="num">2</span>Choose an algorithm</h2>
+      <fieldset class="segmented" aria-label="Algorithm">
+        <label><input type="radio" name="algo" value="mlq" checked><span>Algorithm 1<br><b>Multilevel Queue</b></span></label>
+        <label><input type="radio" name="algo" value="priority"><span>Algorithm 2<br><b>Priority</b></span></label>
+        <label><input type="radio" name="algo" value="both"><span>Compare<br><b>Both on the same input</b></span></label>
+      </fieldset>
+
+      <div class="config-grid">
+        <div id="cfg-mlq" class="config">
+          <h3>Multilevel Queue settings</h3>
+          <p class="hint">Queues are served in fixed order. A ready process in a higher queue preempts a lower one.</p>
+          <div class="queue-policies">
+            <label for="pol-0"><span class="swatch q0"></span>Queue 1, System</label>
+            <select id="pol-0"></select>
+            <label for="pol-1"><span class="swatch q1"></span>Queue 2, Interactive</label>
+            <select id="pol-1"></select>
+            <label for="pol-2"><span class="swatch q2"></span>Queue 3, Batch</label>
+            <select id="pol-2"></select>
+            <label for="quantum">Time quantum (Round Robin queues)</label>
+            <input id="quantum" class="cell narrow" type="text" inputmode="numeric" value="2" autocomplete="off">
+          </div>
+        </div>
+        <div id="cfg-priority" class="config" hidden>
+          <h3>Priority settings</h3>
+          <p class="hint">All processes form one ready set, whatever their queue.</p>
+          <div class="queue-policies">
+            <label for="preempt">Mode</label>
+            <select id="preempt">
+              <option value="no">Non-preemptive (runs until it finishes)</option>
+              <option value="yes">Preemptive (a higher priority interrupts)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="run" id="btn-run">Run simulation</button>
+    </section>
+
+    <!-- STEP 3: RESULTS -->
+    <section class="step" id="results" aria-labelledby="h-results" tabindex="-1">
+      <h2 id="h-results"><span class="num">3</span>Results</h2>
+      <div id="results-body"></div>
+    </section>
+  </main>
+
+  <footer class="colophon">
+    <p>Self Learning Micro Project, Operating System, Stage 02. Second Year, Semester III.</p>
+    <p>Shah and Anchor Kutchhi Engineering College. Soham Bhagat (Roll 02) and Keval Doshi (Roll 13).</p>
+  </footer>
+</div>
+
+<script src="js/engine.js"></script>
+<script src="js/validate.js"></script>
+<script src="js/ui.js"></script>
+</body>
+</html>
